@@ -128,10 +128,12 @@ body {
 }
 
 @keyframes floatUpDown {
+
     0%,
     100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-20px);
     }
@@ -194,6 +196,7 @@ body {
     0% {
         transform: translateY(100vh) rotate(0deg);
     }
+
     100% {
         transform: translateY(-100px) rotate(360deg);
     }
@@ -284,7 +287,7 @@ nav.scrolled {
     cursor: pointer;
     position: absolute;
     right: 30px;
-    top: 22px;
+    top: 16px;
     z-index: 1100;
 }
 
@@ -365,10 +368,12 @@ a.nav-resume-btn:hover {
 }
 
 @keyframes blink {
+
     0%,
     50% {
         opacity: 1;
     }
+
     51%,
     100% {
         opacity: 0;
@@ -736,12 +741,15 @@ section {
         transform: translateY(100vh) scale(0);
         opacity: 0;
     }
+
     10% {
         opacity: 1;
     }
+
     90% {
         opacity: 1;
     }
+
     100% {
         transform: translateY(-100px) scale(1);
         opacity: 0;
@@ -1142,6 +1150,7 @@ section {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1149,10 +1158,12 @@ section {
 }
 
 @keyframes pulse {
+
     0%,
     100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -1380,4 +1391,4 @@ section {
     .project-card p {
         font-size: 0.9rem;
     }
-} 
+}
