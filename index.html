@@ -288,6 +288,56 @@
             display: none;
         }
 
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            position: absolute;
+            right: 30px;
+            top: 22px;
+            z-index: 1100;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                width: 70vw;
+                box-shadow: -2px 0 20px rgba(0, 0, 0, 0.08);
+                border-radius: 0 0 0 16px;
+                padding: 1rem 0;
+                z-index: 1100;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                padding: 18px 24px;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+        }
+
         /* Resume button styling */
         .nav-links a.nav-resume-btn {
             background: linear-gradient(135deg, #B85C8A 0%, #A0527A 100%) !important;
@@ -1323,6 +1373,7 @@
     </div>
 
     <nav id="navbar">
+        <button class="nav-toggle" aria-label="Open navigation">&#9776;</button>
         <div class="nav-container">
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
@@ -1933,6 +1984,20 @@
             if (homeSection) {
                 homeSection.style.opacity = '1';
                 homeSection.style.transform = 'translateY(0)';
+            }
+
+            // --- Hamburger Menu for Mobile ---
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinksList = document.querySelector('.nav-links');
+            if (navToggle && navLinksList) {
+                navToggle.addEventListener('click', () => {
+                    navLinksList.classList.toggle('open');
+                });
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinksList.classList.remove('open');
+                    });
+                });
             }
         });
     </script>
