@@ -1700,386 +1700,236 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Page-like scroll behavior
+            // --- DOM Caching ---
             const sections = document.querySelectorAll('.full-section');
             const pageDots = document.querySelectorAll('.page-dot');
-            let currentSection = 0;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            const navbar = document.getElementById('navbar');
+            const aboutSectionContainer = document.querySelector('#about .about-section-container');
+            const homeSection = document.querySelector('#home');
+            let currentSectionIdx = 0;
+            let lastScrollY = window.scrollY;
+            let animationTimeouts = [];
 
-            // Intersection Observer for section transitions
+            // --- Debounce Utility ---
+            function debounce(fn, delay) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+
+            // --- Section Intersection Observer (page transitions & dots) ---
             const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const sectionId = entry.target.id;
                         const index = Array.from(sections).indexOf(entry.target);
-
-                        // Add visible class for smooth transitions
                         entry.target.classList.add('visible');
-
-                        // Update page dots
                         pageDots.forEach((dot, i) => {
-                            if (i === index) {
-                                dot.classList.add('active');
-                                currentSection = index;
-                            } else {
-                                dot.classList.remove('active');
-                            }
+                            dot.classList.toggle('active', i === index);
                         });
+                        currentSectionIdx = index;
                     }
                 });
-            }, {
-                threshold: 0.5,
-                rootMargin: '-10% 0px -10% 0px'
-            });
+            }, { threshold: 0.5, rootMargin: '-10% 0px -10% 0px' });
+            sections.forEach(section => sectionObserver.observe(section));
 
-            // Observe all sections
-            sections.forEach(section => {
-                sectionObserver.observe(section);
-            });
-
-            // Page dot navigation
+            // --- Page Dot Navigation ---
             pageDots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
                     const targetSection = dot.getAttribute('data-section');
                     const targetElement = document.getElementById(targetSection);
-
                     if (targetElement) {
-                        // Special handling for journey section - scroll to top
-                        if (targetSection === 'journey') {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        } else {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-
-                        // Update current section index
-                        currentSection = index;
-
-                        // Update active states
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: targetSection === 'journey' ? 'start' : 'center'
+                        });
+                        currentSectionIdx = index;
                         pageDots.forEach(d => d.classList.remove('active'));
                         dot.classList.add('active');
                     }
                 });
             });
 
-            // Looping Typewriter effect
+            // --- Typewriter Effect ---
             const typewriterTextElement = document.getElementById('typewriter-text');
             const text = "Hi, I'm Thu (or \"two\"✌️)";
-            let i = 0;
-            let isDeleting = false;
-            let isTyping = true;
-
+            let i = 0, isDeleting = false;
             function typewriterLoop() {
-                const current = text.substring(0, i);
-                typewriterTextElement.textContent = current;
-
-                let typeSpeed = 150;
-
-                if (isDeleting) {
-                    typeSpeed = 75; // Faster when deleting
-                }
-
+                typewriterTextElement.textContent = text.substring(0, i);
+                let typeSpeed = isDeleting ? 75 : 150;
                 if (!isDeleting && i === text.length) {
-                    // Finished typing, wait then start deleting
-                    typeSpeed = 2500; // Pause for 2.5 seconds
-                    isDeleting = true;
+                    typeSpeed = 2500; isDeleting = true;
                 } else if (isDeleting && i === 0) {
-                    // Finished deleting, start typing again
-                    isDeleting = false;
-                    typeSpeed = 500; // Short pause before typing again
+                    isDeleting = false; typeSpeed = 500;
                 }
-
-                if (isDeleting) {
-                    i--;
-                } else {
-                    i++;
-                }
-
+                i += isDeleting ? -1 : 1;
                 setTimeout(typewriterLoop, typeSpeed);
             }
-
-            // Start the loop after initial delay
             setTimeout(typewriterLoop, 1000);
 
-            // Wait a bit more for everything to load
+            // --- Timeline Filtering ---
             setTimeout(function () {
-                // Get elements
                 const filterButtons = document.querySelectorAll('.filter-button');
                 const yearButtons = document.querySelectorAll('.year-button');
                 const timelineItems = document.querySelectorAll('.timeline-item');
-
-                // Simple filter function
-                function applyFilter(filterType, filterValue) {
-                    timelineItems.forEach((item, i) => {
-                        let shouldShow = false;
-
-                        if (filterType === 'all') {
-                            shouldShow = true;
-                        } else if (filterType === 'category') {
-                            const itemCategory = item.getAttribute('data-category');
-                            shouldShow = (filterValue === 'all') || (itemCategory === filterValue);
-                        } else if (filterType === 'year') {
-                            const itemYear = item.getAttribute('data-year');
-                            shouldShow = (filterValue === 'all') || (itemYear === filterValue);
-                        }
-
-                        if (shouldShow) {
-                            item.style.display = 'flex';
-                            item.style.visibility = 'visible';
-                        } else {
-                            item.style.display = 'none';
-                            item.style.visibility = 'hidden';
-                        }
+                function applyFilter(type, value) {
+                    timelineItems.forEach(item => {
+                        let show = false;
+                        if (type === 'all') show = true;
+                        else if (type === 'category') show = (value === 'all') || (item.getAttribute('data-category') === value);
+                        else if (type === 'year') show = (value === 'all') || (item.getAttribute('data-year') === value);
+                        item.style.display = show ? 'flex' : 'none';
+                        item.style.visibility = show ? 'visible' : 'hidden';
                     });
                 }
-
-                // Add click handlers to filter buttons
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        const filterValue = this.getAttribute('data-filter');
-
-                        // Update active state
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        this.classList.add('active');
-
-                        // Apply filter
-                        if (filterValue === 'all') {
-                            applyFilter('all', 'all');
-                        } else {
-                            applyFilter('category', filterValue);
-                        }
-                    });
-                });
-
-                // Add click handlers to year buttons
-                yearButtons.forEach(button => {
-                    button.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        const yearValue = this.getAttribute('data-year');
-
-                        // Update active state
-                        yearButtons.forEach(btn => btn.classList.remove('active'));
-                        this.classList.add('active');
-
-                        // Apply filter
-                        applyFilter('year', yearValue);
-                    });
-                });
-
-                // Show all items initially
-                applyFilter('all', 'all');
-
-            }, 500); // Wait 500ms for everything to be ready
-
-            // Scroll indicator
-            window.addEventListener('scroll', () => {
-                const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                document.querySelector('.scroll-indicator').style.width = scrolled + '%';
-            });
-
-            // Navbar scroll effect
-            window.addEventListener('scroll', () => {
-                const navbar = document.getElementById('navbar');
-                if (window.scrollY > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                filterButtons.forEach(btn => btn.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const val = this.getAttribute('data-filter');
+                    applyFilter(val === 'all' ? 'all' : 'category', val);
+                }));
+                yearButtons.forEach(btn => btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    yearButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilter('year', this.getAttribute('data-year'));
+                }));
+                applyFilter('all', 'all');
+            }, 500);
 
-            // Intersection Observer for animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
+            // --- Intersection Observer for Section Animations ---
+            const animObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
                     }
                 });
-            }, observerOptions);
-
-            // Observe all sections for animation
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
             document.querySelectorAll('section').forEach(section => {
                 section.style.opacity = '0';
                 section.style.transform = 'translateY(30px)';
                 section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(section);
+                animObserver.observe(section);
             });
 
-            // Flying cards animation - ultra-reliable reset and trigger
-            let lastScrollY = window.scrollY;
-            let animationTimeouts = [];
-
-            // Clear all existing timeouts
+            // --- Flying Cards Animation ---
             function clearAllTimeouts() {
                 animationTimeouts.forEach(timeout => clearTimeout(timeout));
                 animationTimeouts = [];
             }
-
-            // Immediate hard reset function
             function hardResetCards(container) {
                 const profile = container.querySelector('.about-profile-centered');
                 const textParagraph = container.querySelector('.text-paragraph-flying');
                 const skillCards = container.querySelectorAll('.skill-card-flying');
-
-                // Remove classes multiple times with reflows
                 [profile, textParagraph, ...skillCards].forEach(element => {
                     if (element) {
                         element.classList.remove('fly-in');
-                        element.style.transition = 'none'; // Disable transitions temporarily
-                        element.offsetHeight; // Force reflow
-                        element.style.transition = ''; // Re-enable transitions
-                        element.offsetHeight; // Another reflow
+                        element.style.transition = 'none';
+                        element.offsetHeight;
+                        element.style.transition = '';
+                        element.offsetHeight;
                     }
                 });
             }
-
-            const flyingObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const currentScrollY = window.scrollY;
-                    const isScrollingDown = currentScrollY > lastScrollY;
-
-                    if (entry.isIntersecting && isScrollingDown) {
-                        // Clear any existing animations immediately
-                        clearAllTimeouts();
-
-                        // Hard reset all cards
-                        hardResetCards(entry.target);
-
-                        // Wait for reset to complete, then animate - ULTRA SMOOTH
-                        animationTimeouts.push(setTimeout(() => {
-                            const profile = entry.target.querySelector('.about-profile-centered');
-                            if (profile) {
-                                profile.classList.add('fly-in');
-                            }
-                        }, 100));
-
-                        const textParagraph = entry.target.querySelector('.text-paragraph-flying');
-                        if (textParagraph) {
-                            animationTimeouts.push(setTimeout(() => {
-                                textParagraph.classList.add('fly-in');
-                            }, 300));
-                        }
-
-                        const skillCards = entry.target.querySelectorAll('.skill-card-flying');
-                        skillCards.forEach((card, index) => {
-                            animationTimeouts.push(setTimeout(() => {
-                                card.classList.add('fly-in');
-                            }, 500 + (index * 200)));
-                        });
-                    }
-
-                    lastScrollY = currentScrollY;
-                });
-            }, {
-                threshold: 0.3,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            // Clear timeouts when leaving section
-            const cleanupObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
-                        clearAllTimeouts();
-                    }
-                });
-            }, {
-                threshold: 0
-            });
-
-            // Observe the about section
-            const aboutSectionContainer = document.querySelector('#about .about-section-container');
             if (aboutSectionContainer) {
+                const flyingObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const currentScrollY = window.scrollY;
+                        const isScrollingDown = currentScrollY > lastScrollY;
+                        if (entry.isIntersecting && isScrollingDown) {
+                            clearAllTimeouts();
+                            hardResetCards(entry.target);
+                            animationTimeouts.push(setTimeout(() => {
+                                const profile = entry.target.querySelector('.about-profile-centered');
+                                if (profile) profile.classList.add('fly-in');
+                            }, 100));
+                            const textParagraph = entry.target.querySelector('.text-paragraph-flying');
+                            if (textParagraph) {
+                                animationTimeouts.push(setTimeout(() => {
+                                    textParagraph.classList.add('fly-in');
+                                }, 300));
+                            }
+                            const skillCards = entry.target.querySelectorAll('.skill-card-flying');
+                            skillCards.forEach((card, idx) => {
+                                animationTimeouts.push(setTimeout(() => {
+                                    card.classList.add('fly-in');
+                                }, 500 + (idx * 200)));
+                            });
+                        }
+                        lastScrollY = currentScrollY;
+                    });
+                }, { threshold: 0.3, rootMargin: '0px 0px -50px 0px' });
+                const cleanupObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) clearAllTimeouts();
+                    });
+                }, { threshold: 0 });
                 flyingObserver.observe(aboutSectionContainer);
                 cleanupObserver.observe(aboutSectionContainer);
             }
 
-            // Observe the about section for flying animations
-            const aboutSection = document.querySelector('#about .about-section-container');
-            if (aboutSection) {
-                flyingObserver.observe(aboutSection);
-            }
+            // --- Navigation Highlighting (Click & Scroll) ---
+            document.querySelector('.nav-links').addEventListener('click', function (e) {
+                const link = e.target.closest('a');
+                if (!link) return;
+                if (link.classList.contains('nav-contact-btn') || link.classList.contains('nav-resume-btn') || link.getAttribute('target') === '_blank') return;
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
 
-            // Navigation highlighting - click and scroll
-            const navLinks = document.querySelectorAll('.nav-links a');
-
-            // Click handling
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    // Don't handle external links (Resume and LinkedIn)
-                    if (this.classList.contains('nav-contact-btn') || this.classList.contains('nav-resume-btn') || this.getAttribute('target') === '_blank') {
-                        return;
+            // --- Smooth Scrolling for Anchor Links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
-
-                    // Remove active class from all nav links
-                    navLinks.forEach(l => l.classList.remove('active'));
-
-                    // Add active class to clicked link
-                    this.classList.add('active');
                 });
             });
 
-            // Simple scroll-based highlighting
-            window.addEventListener('scroll', function () {
-                const sections = [
+            // --- Combined Scroll Handler (debounced) ---
+            window.addEventListener('scroll', debounce(() => {
+                // Scroll indicator
+                const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                scrollIndicator.style.width = scrolled + '%';
+
+                // Navbar scroll effect
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Navigation highlighting
+                const navSections = [
                     { id: 'about', navHref: '#about' },
                     { id: 'journey', navHref: '#journey' },
                     { id: 'projects', navHref: '#projects' }
                 ];
-
                 let currentSection = '';
-
-                sections.forEach(section => {
+                navSections.forEach(section => {
                     const element = document.getElementById(section.id);
                     if (element) {
                         const rect = element.getBoundingClientRect();
-                        const elementTop = rect.top;
-                        const elementBottom = rect.bottom;
-
-                        // Check if section is in view (center of viewport)
-                        if (elementTop <= window.innerHeight * 0.5 && elementBottom >= window.innerHeight * 0.5) {
+                        if (rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5) {
                             currentSection = section.navHref;
                         }
                     }
                 });
-
-                // Update navigation highlighting
                 if (currentSection) {
                     navLinks.forEach(link => link.classList.remove('active'));
                     const activeLink = document.querySelector(`.nav-links a[href="${currentSection}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active');
-                    }
+                    if (activeLink) activeLink.classList.add('active');
                 }
-            });
+            }, 20));
 
-            // Hero section is already visible
-            const homeSection = document.querySelector('#home');
+            // --- Hero Section Animation (immediate) ---
             if (homeSection) {
                 homeSection.style.opacity = '1';
                 homeSection.style.transform = 'translateY(0)';
