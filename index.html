@@ -336,6 +336,57 @@
             .nav-links li:last-child a {
                 border-bottom: none;
             }
+
+            .timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+                width: 3px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                align-items: flex-start;
+                padding-left: 60px;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: 100%;
+                min-width: 0;
+                margin: 0;
+                padding: 1.5rem 1rem;
+            }
+
+            .timeline-content::before {
+                left: -22px !important;
+                right: auto !important;
+                border-right-color: rgba(255, 255, 255, 0.9) !important;
+                border-left-color: transparent !important;
+            }
+
+            .timeline-item.active .timeline-content::before {
+                border-right-color: rgba(255, 255, 255, 0.95) !important;
+                border-left-color: transparent !important;
+            }
+
+            .timeline-year {
+                left: 0;
+                transform: none;
+                width: 48px;
+                height: 48px;
+                font-size: 0.9rem;
+                margin-right: 12px;
+                position: absolute;
+                top: 24px;
+            }
         }
 
         /* Resume button styling */
