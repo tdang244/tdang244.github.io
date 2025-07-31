@@ -209,13 +209,14 @@ nav {
     justify-content: space-between;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     padding: 1.5rem 5%;
     backdrop-filter: blur(20px);
     background: rgba(255, 255, 255, 0.95);
     z-index: 1000;
-    transition: all 0.3s ease;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background 0.3s, padding 0.3s, border-bottom 0.3s;
 }
 
 nav.scrolled {
@@ -284,14 +285,13 @@ nav.scrolled {
 
 .nav-toggle {
     display: none;
-    background: none;
+    background: transparent;
     border: none;
     font-size: 2rem;
     cursor: pointer;
-    position: absolute;
-    right: 30px;
-    top: 12px;
-    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 /* Resume button styling */
