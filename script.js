@@ -322,27 +322,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('touchend', function(e) {
         touchEndY = e.changedTouches[0].screenY;
-        handleSwipe();
+        // handleSwipe();
     });
 
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartY - touchEndY;
+    // function handleSwipe() {
+    //     const swipeThreshold = 50;
+    //     const diff = touchStartY - touchEndY;
         
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe up - go to next section
-                if (currentSectionIdx < sections.length - 1) {
-                    sections[currentSectionIdx + 1].scrollIntoView({ behavior: 'smooth' });
-                }
-            } else {
-                // Swipe down - go to previous section
-                if (currentSectionIdx > 0) {
-                    sections[currentSectionIdx - 1].scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-    }
+    //     if (Math.abs(diff) > swipeThreshold) {
+    //         if (diff > 0) {
+    //             // Swipe up - go to next section
+    //             if (currentSectionIdx < sections.length - 1) {
+    //                 sections[currentSectionIdx + 1].scrollIntoView({ behavior: 'smooth' });
+    //             }
+    //         } else {
+    //             // Swipe down - go to previous section
+    //             if (currentSectionIdx > 0) {
+    //                 sections[currentSectionIdx - 1].scrollIntoView({ behavior: 'smooth' });
+    //             }
+    //         }
+    //     }
+    // }
 
     // --- Performance Optimization for Mobile ---
     let ticking = false;
