@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const filterButtons = document.querySelectorAll('.filter-button');
         const yearButtons = document.querySelectorAll('.year-button');
         const timelineItems = document.querySelectorAll('.timeline-item');
-        
+
         function applyFilter(type, value) {
             timelineItems.forEach(item => {
                 let show = false;
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 item.style.visibility = show ? 'visible' : 'hidden';
             });
         }
-        
+
         filterButtons.forEach(btn => btn.addEventListener('click', function (e) {
             e.preventDefault();
             filterButtons.forEach(b => b.classList.remove('active'));
@@ -94,23 +94,23 @@ document.addEventListener('DOMContentLoaded', function () {
             const val = this.getAttribute('data-filter');
             applyFilter(val === 'all' ? 'all' : 'category', val);
         }));
-        
+
         yearButtons.forEach(btn => btn.addEventListener('click', function (e) {
             e.preventDefault();
             yearButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             applyFilter('year', this.getAttribute('data-year'));
-            
+
             // Scroll to journey section when year button is clicked
             const journeySection = document.getElementById('journey');
             if (journeySection) {
-                journeySection.scrollIntoView({ 
-                    behavior: 'instant', 
-                    block: 'end' 
+                journeySection.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'end'
                 });
             }
         }));
-        
+
         applyFilter('all', 'all');
     }, 500);
 
@@ -118,24 +118,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const animObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                
+
                 // Enhanced mobile detection for different iPhone models
                 const isMobile = window.innerWidth <= 768;
                 const isSmallScreen = window.innerWidth <= 375; // iPhone SE territory
-                
+
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
                 if (entry.target.id == 'journey' && (isMobile || isSmallScreen)) {
                     setTimeout(() => {
                         entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                     }, 100);
-                } 
+                }
             }
         });
-    }, { 
+    }, {
         threshold: isMobile() ? 0.05 : 0.1, // Lower threshold for mobile
         rootMargin: isMobile() ? '0px 0px -20px 0px' : '0px 0px -50px 0px', // Smaller margin for mobile
-        root: null 
+        root: null
     });
 
     // Helper function to detect mobile
@@ -155,30 +155,30 @@ document.addEventListener('DOMContentLoaded', function () {
         animationTimeouts.forEach(timeout => clearTimeout(timeout));
         animationTimeouts = [];
     }
-    
+
     function triggerAboutAnimation(container) {
         if (aboutAnimationTriggered) return; // Don't trigger again if already triggered
-        
+
         aboutAnimationTriggered = true;
-        
+
         const profile = container.querySelector('.about-profile-centered');
         const textParagraph = container.querySelector('.text-paragraph-flying');
         const skillCards = container.querySelectorAll('.skill-card-flying');
-        
+
         // Trigger profile animation
         if (profile) {
             animationTimeouts.push(setTimeout(() => {
                 profile.classList.add('fly-in');
             }, 100));
         }
-        
+
         // Trigger text paragraph animation
         if (textParagraph) {
             animationTimeouts.push(setTimeout(() => {
                 textParagraph.classList.add('fly-in');
             }, 300));
         }
-        
+
         // Trigger skill cards animations
         skillCards.forEach((card, idx) => {
             animationTimeouts.push(setTimeout(() => {
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 500 + (idx * 200)));
         });
     }
-    
+
     if (aboutSectionContainer) {
         const flyingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -195,13 +195,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     triggerAboutAnimation(entry.target);
                 }
             });
-        }, { 
-            threshold: 0.3, 
-            rootMargin: '0px 0px -50px 0px' 
+        }, {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
         });
-        
+
         flyingObserver.observe(aboutSectionContainer);
-        
+
         // Force trigger on iPhone SE if the observer doesn't work
         const isIPhoneSE = window.innerWidth === 375 && window.innerHeight === 667;
         if (isIPhoneSE) {
@@ -251,18 +251,18 @@ document.addEventListener('DOMContentLoaded', function () {
         // Use the same logic as the section observer for consistency
         const sections = document.querySelectorAll('.full-section');
         let currentSection = '';
-        
+
         sections.forEach((section, index) => {
             const rect = section.getBoundingClientRect();
             const isIntersecting = rect.top <= window.innerHeight * 0.5 && rect.bottom >= window.innerHeight * 0.5;
-            
+
             if (isIntersecting) {
                 // Map section index to section name
                 const sectionNames = ['home', 'about', 'journey', 'projects'];
                 currentSection = `#${sectionNames[index]}`;
             }
         });
-        
+
         if (currentSection) {
             // Highlight navigation links
             navLinks.forEach(link => link.classList.remove('active'));
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Current section: ", currentSection);
             console.log("Active link: ", activeLink);
             if (activeLink) activeLink.classList.add('active');
-            
+
             // Highlight page dots
             pageDots.forEach(dot => dot.classList.remove('active'));
             const activeDot = document.querySelector(`.page-dot[data-section="${currentSection.replace('#', '')}"]`);
@@ -287,12 +287,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Hamburger Menu for Mobile ---
     const navToggle = document.querySelector('.nav-toggle');
     const navLinksList = document.querySelector('.nav-links');
-    
+
     if (navToggle && navLinksList) {
         navToggle.addEventListener('click', () => {
             navLinksList.classList.toggle('open');
         });
-        
+
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinksList.classList.remove('open');
@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Timeline Item Click Handlers ---
     document.querySelectorAll('.timeline-item').forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             // Remove active class from all timeline items
             document.querySelectorAll('.timeline-item').forEach(ti => {
                 ti.classList.remove('active');
@@ -316,53 +316,34 @@ document.addEventListener('DOMContentLoaded', function () {
     let touchStartY = 0;
     let touchEndY = 0;
 
-    document.addEventListener('touchstart', function(e) {
+    document.addEventListener('touchstart', function (e) {
         touchStartY = e.changedTouches[0].screenY;
     });
 
-    document.addEventListener('touchend', function(e) {
+    document.addEventListener('touchend', function (e) {
         touchEndY = e.changedTouches[0].screenY;
         // handleSwipe();
     });
 
-    // function handleSwipe() {
-    //     const swipeThreshold = 50;
-    //     const diff = touchStartY - touchEndY;
-        
-    //     if (Math.abs(diff) > swipeThreshold) {
-    //         if (diff > 0) {
-    //             // Swipe up - go to next section
-    //             if (currentSectionIdx < sections.length - 1) {
-    //                 sections[currentSectionIdx + 1].scrollIntoView({ behavior: 'smooth' });
-    //             }
-    //         } else {
-    //             // Swipe down - go to previous section
-    //             if (currentSectionIdx > 0) {
-    //                 sections[currentSectionIdx - 1].scrollIntoView({ behavior: 'smooth' });
-    //             }
-    //         }
-    //     }
-    // }
-
     // --- Performance Optimization for Mobile ---
     let ticking = false;
-    
+
     function updateScrollIndicator() {
         const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
         scrollIndicator.style.width = scrolled + '%';
         ticking = false;
     }
-    
+
     function requestTick() {
         if (!ticking) {
             requestAnimationFrame(updateScrollIndicator);
             ticking = true;
         }
     }
-    
+
     // Use passive listeners for better mobile performance
     window.addEventListener('scroll', requestTick, { passive: true });
-    
+
     // --- Resize Handler ---
     window.addEventListener('resize', debounce(() => {
         // Recalculate any layout-dependent values
@@ -373,4 +354,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }, 250));
-}); 
+});
