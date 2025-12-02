@@ -1395,3 +1395,45 @@ section {
         font-size: 0.9rem;
     }
 }
+
+/* Journey Map Styles */
+.journey-map {
+    text-align: center;
+    margin: 0.75rem auto 1.75rem;
+    /* space under title */
+    width: 100%;
+    max-width: 960px;
+    /* caps the map width on large screens */
+    padding: 0 1rem;
+    /* small horizontal padding on narrow screens */
+}
+
+.journey-map img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Ensure any timeline-embedded images scale nicely and don't break layout */
+.timeline-image,
+.timeline-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile tweaks: smaller max width and tighter margins */
+@media (max-width: 768px) {
+    .journey-map {
+        max-width: 92%;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .journey-map img {
+        border-radius: 6px;
+    }
+}
