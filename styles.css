@@ -159,7 +159,7 @@ body::before {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
     padding: 0 24px;
 }
