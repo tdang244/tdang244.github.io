@@ -159,7 +159,7 @@ body::before {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2px;
+    gap: 10px;
     align-items: center;
     padding: 0 24px;
 }
@@ -182,25 +182,24 @@ body::before {
 }
 
 .nav-resume-btn {
-    border: 1px solid var(--border) !important;
-    color: var(--text-2) !important;
-    background: transparent !important;
-}
-
-.nav-resume-btn:hover {
-    border-color: var(--accent) !important;
+    border: 1px solid var(--accent) !important;
     color: var(--accent) !important;
     background: var(--accent-bg) !important;
 }
 
+.nav-resume-btn:hover {
+    background: rgba(139, 92, 246, 0.2) !important;
+    color: var(--accent) !important;
+}
+
 .nav-contact-btn {
-    background: var(--accent) !important;
+    background: #0077b5 !important;
     color: #fff !important;
     border: none !important;
 }
 
 .nav-contact-btn:hover {
-    background: var(--accent-hover) !important;
+    background: #005f93 !important;
     color: #fff !important;
 }
 
