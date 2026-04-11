@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thu Dang - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 
 <body>
@@ -31,17 +32,18 @@
 
     <nav id="navbar">
         <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#journey">Journey</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="https://drive.google.com/file/d/19-6_trMS86smc1r-492FgwX5HsUdKOg_/view?usp=sharing"
-                        target="_blank" class="nav-resume-btn">Resume</a>
-                </li>
-                <li><a href="https://www.linkedin.com/in/thudang24/" target="_blank"
-                        class="nav-contact-btn">LinkedIn</a></li>
-            </ul>
+            <!-- desktop nav links live here -->
         </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="https://drive.google.com/file/d/16f7ZS7ApeS9eaxSHynJEwyy93gLAxpvM/view?usp=sharing"
+                    target="_blank" class="nav-resume-btn">Resume</a>
+            </li>
+            <li><a href="https://www.linkedin.com/in/thudang24/" target="_blank"
+                    class="nav-contact-btn">LinkedIn</a></li>
+        </ul>
         <button class="nav-toggle" aria-label="Open navigation">&#9776;</button>
     </nav>
 
@@ -50,85 +52,88 @@
         <div class="floating-element"></div>
         <div class="floating-element"></div>
         <div class="hero-content">
-            <h1 class="typewriter">
-                <span class="typewriter-text" id="typewriter-text"></span>
-                <span class="typewriter-cursor" id="typewriter-cursor"></span>
-            </h1>
-            <p class="subtitle">I am an Analytics Engineer and an AI enthusiast</p>
-            <p class="description">
-                and I aspire to advance fairness in AI through data-driven solutions!
-            </p>
-            <div class="cta-buttons">
-                <a href="#about" class="btn btn-secondary">Keep scrolling to know more about me :) ↓</a>
+            <div class="hero-text">
+                <h1 class="typewriter">
+                    <span class="typewriter-text" id="typewriter-text"></span>
+                    <span class="typewriter-cursor" id="typewriter-cursor"></span>
+                </h1>
+                <p class="subtitle">Analytics Engineer · AI Enthusiast</p>
+                <p class="description">Building equitable AI, one pipeline at a time.</p>
+                <div class="cta-buttons">
+                    <a href="#about" class="btn btn-secondary">About me ↓</a>
+                </div>
+            </div>
+            <div class="hero-photo-wrap">
+                <img src="anchor.jpg" alt="Cherry blossoms" class="hero-photo" />
             </div>
         </div>
         <div class="section-divider"></div>
     </section>
 
     <section id="about" class="full-section">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
         <h2 class="section-title">Who I Am</h2>
 
         <div class="about-section-container">
-            <div class="floating-particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-            </div>
 
-            <div class="about-profile-centered">
-                <div class="profile-img-flying">👩🏻‍💻</div>
-            </div>
-
-            <div class="about-cards-container">
-                <div class="text-paragraph-flying">
-                    <p>
-                        I'm an Analytics Engineer II at Lucid Software, the company that invents Lucidchart and
-                        Lucidspark!
-                        Before embarking on my journey as an Analytics Engineer at Lucid, I've been working in different
-                        data capacities across diverse industries including fintech, real estate tech, and consulting.
-                        I graduated Summa Cum Laude from Macalester College with a Bachelor of Arts degree in Applied
-                        Mathematics and Statistics, along with a minor in Computer Science. I'm also a member of the Phi
-                        Beta Kappa Honor Society.
-                    </p>
-                    <p>
-                        My international background -- growing up in Vietnam, studying in India and the US, and working
-                        in various industries across international markets -- allows me to see how technologies built on
-                        biases can disproportionately affect women and marginalized people. I am passionate about diving
-                        deep into AI/ML research through graduate studies and develop frameworks that ensure AI systems
-                        serve all users equitably, not just those traditionally represented in tech.
-                    </p>
+            <!-- Top bento row: avatar + bio -->
+            <div class="about-bento-top text-paragraph-flying">
+                <div class="about-avatar about-profile-centered">
+                    <img src="profile.jpg" alt="Thu Dang" class="about-avatar-img" />
+                </div>
+                <div class="about-bio">
+                    <p class="about-bio-lead">Analytics Engineer II at <strong>Lucid Software</strong> (Lucidchart &amp; Lucidspark). Previously in data roles across fintech, real estate tech, BCG, and Deloitte.</p>
+                    <p class="about-bio-sub">Grew up in 🇻🇳 Vietnam, studied in 🇮🇳 India &amp; the 🇺🇸 US, and worked across 🌏 international markets. This path gives me a lens on building equitable AI.</p>
+                    <div id="journey-map" class="about-map"></div>
                 </div>
             </div>
 
-            <div class="skills-flying-grid">
-                <div class="skill-card-flying">
-                    <h3>Tech Stack</h3>
-                    <p>SQL, dbt, Python, R</p>
+            <!-- Bottom bento row: stat cards -->
+            <div class="about-stats-grid skills-flying-grid">
+                <div class="about-stat-card skill-card-flying">
+                    <span class="about-stat-icon">🎓</span>
+                    <div class="about-stat-body">
+                        <div class="about-stat-value">Macalester College</div>
+                        <div class="about-stat-meta">Summa Cum Laude · 3.91 GPA · Phi Beta Kappa</div>
+                    </div>
                 </div>
-                <div class="skill-card-flying">
-                    <h3>Range of Experiences</h3>
-                    <p>• Consulting (BCG, Deloitte)<br>• Data Science (Fintech, Real Estate Tech)<br>• Analytics
-                        Engineering (Buy
-                        Now Pay Later (BNPL), Productivity Tool)</p>
+                <div class="about-stat-card skill-card-flying">
+                    <span class="about-stat-icon">💻</span>
+                    <div class="about-stat-body">
+                        <div class="about-stat-value">Tech Stack</div>
+                        <div class="about-stat-meta">
+                            <span class="chip">SQL</span>
+                            <span class="chip">dbt</span>
+                            <span class="chip">Python</span>
+                            <span class="chip">R</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card-flying">
-                    <h3>Focus Areas</h3>
-                    <p>Analytics Engineering, AI Application, Machine Learning</p>
+                <div class="about-stat-card skill-card-flying">
+                    <span class="about-stat-icon">🌏</span>
+                    <div class="about-stat-body">
+                        <div class="about-stat-value">Focus Areas</div>
+                        <div class="about-stat-meta">
+                            <span class="chip">Analytics Engineering</span>
+                            <span class="chip">AI Application</span>
+                            <span class="chip">Machine Learning</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="skill-card-flying">
-                    <h3>Life Skills</h3>
-                    <p>Climbing, Running, Loving a good latte</p>
+                <div class="about-stat-card skill-card-flying">
+                    <span class="about-stat-icon">🧗</span>
+                    <div class="about-stat-body">
+                        <div class="about-stat-value">Outside Work</div>
+                        <div class="about-stat-meta">
+                            <span class="chip">Climbing</span>
+                            <span class="chip">Running</span>
+                            <span class="chip">Photography</span>
+                            <span class="chip">Good Lattes</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
-        <div class="section-divider"></div>
     </section>
 
     <section id="journey" class="full-section">
@@ -144,164 +149,177 @@
             </div>
 
             <div class="timeline">
-                <div class="timeline-item active" data-year="2024" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Analytics Engineer II</h3>
-                        <p class="role">Lucid Software</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Data Infrastructure Transformation</span>
-                            <span class="achievement-tag">Dimensional Modeling</span>
-                            <span class="achievement-tag">Metrics Development</span>
+
+                <!-- 2024 -->
+                <div class="timeline-year-group" data-group-year="2024">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2024</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2024" data-category="professional">
+                            <h3>Analytics Engineer II</h3>
+                            <p class="role">Lucid Software</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">80% Fewer Sync Errors</span>
+                                <span class="achievement-tag">50+ CX Members Enabled</span>
+                                <span class="achievement-tag">Claude Code Adoption Lead</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2024</div>
                 </div>
 
-                <div class="timeline-item" data-year="2023" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Analytics Engineer I</h3>
-                        <p class="role">Lucid Software</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Data Optimization</span>
-                            <span class="achievement-tag">System Overhaul</span>
-                            <span class="achievement-tag">Data Validation</span>
-                            <span class="achievement-tag">Cross-team Liaison</span>
+                <!-- 2023 -->
+                <div class="timeline-year-group" data-group-year="2023">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2023</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2023" data-category="professional">
+                            <h3>Analytics Engineer I</h3>
+                            <p class="role">Lucid Software</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">40+ Pipeline Monitors</span>
+                                <span class="achievement-tag">dbt Dimensional Modeling</span>
+                                <span class="achievement-tag">Backlog Bottleneck Visibility</span>
+                                <span class="achievement-tag">Eng–Business Bridge</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2023" data-category="education">
+                            <h3>Bachelor of Arts — Applied Mathematics & Statistics, Computer Science</h3>
+                            <p class="role">Macalester College, Saint Paul, MN</p>
+                            <p>• Graduated Summa Cum Laude with 3.91 GPA, earning membership in the Phi Beta Kappa Society<br>• Major in Applied Mathematics & Statistics with Computer Science minor</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">Summa Cum Laude</span>
+                                <span class="achievement-tag">3.91 GPA</span>
+                                <span class="achievement-tag">Phi Beta Kappa</span>
+                                <span class="achievement-tag">Applied Math + CS Minor</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2023" data-category="professional">
+                            <h3>Analytics Engineering Intern</h3>
+                            <p class="role">Sezzle, Minneapolis</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">100% Error Detection Rate</span>
+                                <span class="achievement-tag">3M+ User Address Pipeline</span>
+                                <span class="achievement-tag">Credit Bureau Accuracy Fix</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2023</div>
                 </div>
 
-                <div class="timeline-item" data-year="2023" data-category="education">
-                    <div class="timeline-content">
-                        <h3>Bachelor of Arts - Applied Mathematics & Statistics, Computer Science</h3>
-                        <p class="role">Macalester College, Saint Paul, MN</p>
-                        <p>• Graduated Summa Cum Laude with 3.91 GPA, earning membership in the prestigious Phi Beta
-                            Kappa Society<br>• Completed major in Applied Mathematics and Statistics with Computer
-                            Science minor, building strong foundation in statistical methods, mathematical modeling, and
-                            computational problem-solving</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Summa Cum Laude</span>
-                            <span class="achievement-tag">Phi Beta Kappa</span>
-                            <span class="achievement-tag">Applied Mathematics</span>
-                            <span class="achievement-tag">Computer Science</span>
+                <!-- 2022 -->
+                <div class="timeline-year-group" data-group-year="2022">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2022</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2022" data-category="professional">
+                            <h3>Data Science Intern</h3>
+                            <p class="role">Up&Up, NYC (Series B Startup)</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">10× Faster Reporting</span>
+                                <span class="achievement-tag">Predictive Rent Models</span>
+                                <span class="achievement-tag">ML Feature Engineering</span>
+                                <span class="achievement-tag">Real Estate Analytics</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2023</div>
                 </div>
 
-                <div class="timeline-item" data-year="2023" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Analytics Engineering Intern</h3>
-                        <p class="role">Sezzle, Minneapolis</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Address Data Validation</span>
-                            <span class="achievement-tag">Error Monitoring and Reporting</span>
-                            <span class="achievement-tag">Process Automation</span>
+                <!-- 2021 -->
+                <div class="timeline-year-group" data-group-year="2021">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2021</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2021" data-category="professional">
+                            <h3>Summer Analytics Consultant — AI & Data Team</h3>
+                            <p class="role">Deloitte Consulting, Singapore</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">70% Faster Pipeline Runtime</span>
+                                <span class="achievement-tag">40% Less Engineering Overhead</span>
+                                <span class="achievement-tag">20+ Validation Checks Built</span>
+                                <span class="achievement-tag">Real-Time Anomaly Detection</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2021" data-category="professional">
+                            <h3>Case Team Assistant</h3>
+                            <p class="role">Boston Consulting Group (BCG), Ho Chi Minh City</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">50% Faster Strategic Analysis</span>
+                                <span class="achievement-tag">Eight-Figure M&A Due Diligence</span>
+                                <span class="achievement-tag">SQL/R Automation</span>
+                                <span class="achievement-tag">Bank Transformation Engagement</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-year="2021" data-category="professional">
+                            <h3>Teaching Assistant</h3>
+                            <p class="role">Macalester College</p>
+                            <p>• STAT 155 Statistical Modeling & STAT 125 Epidemiology<br>• Lab sessions and one-on-one tutoring across 2 semesters</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">Stats & Epidemiology TA</span>
+                                <span class="achievement-tag">Lab Instruction</span>
+                                <span class="achievement-tag">One-on-One Mentorship</span>
+                                <span class="achievement-tag">2 Semesters</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2023</div>
                 </div>
 
-                <div class="timeline-item" data-year="2022" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Data Science Intern</h3>
-                        <p class="role">Up&Up, NYC (Series B Startup)</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Predictive Modeling</span>
-                            <span class="achievement-tag">Machine Learning</span>
-                            <span class="achievement-tag">Real Estate Tech</span>
-                            <span class="achievement-tag">Reporting Performance Optimization</span>
+                <!-- 2020 -->
+                <div class="timeline-year-group" data-group-year="2020">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2020</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2020" data-category="professional">
+                            <h3>Business Intelligence Analyst Intern</h3>
+                            <p class="role">MoMo (Vietnamese Tech Unicorn), Ho Chi Minh City</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">$9M Operational Loss Reduced</span>
+                                <span class="achievement-tag">15% Revenue Growth</span>
+                                <span class="achievement-tag">20M-User Fintech Platform</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2022</div>
                 </div>
 
-                <div class="timeline-item" data-year="2021" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Summer Analytics Consultant - Artificial Intelligence & Data Team</h3>
-                        <p class="role">Deloitte Consulting, Singapore</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Architecture Engineering</span>
-                            <span class="achievement-tag">Infrastructure Optimization</span>
-                            <span class="achievement-tag">Data Validation</span>
-                            <span class="achievement-tag">Reporting Development</span>
+                <!-- 2019 -->
+                <div class="timeline-year-group" data-group-year="2019">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2019</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2019" data-category="professional">
+                            <h3>Market Research Intern</h3>
+                            <p class="role">Mindshare (Global Media Agency)</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">Media Mix Planning</span>
+                                <span class="achievement-tag">Consumer Insights</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2021</div>
                 </div>
 
-                <div class="timeline-item" data-year="2021" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Case Team Assistant</h3>
-                        <p class="role">Boston Consulting Group (BCG), Ho Chi Minh City, Vietnam</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Strategy Consulting</span>
-                            <span class="achievement-tag">Financial Modeling</span>
-                            <span class="achievement-tag">Analysis Automation</span>
-                            <span class="achievement-tag">Market Research</span>
+                <!-- 2018 -->
+                <div class="timeline-year-group" data-group-year="2018">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2018</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2018" data-category="education">
+                            <h3>International Baccalaureate</h3>
+                            <p class="role">UWC Mahindra College, India</p>
+                            <p>• 42/45 — World 98th percentile<br>• HL: Mathematics, Psychology, Chemistry</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">World Top 2%</span>
+                                <span class="achievement-tag">42/45 Score</span>
+                                <span class="achievement-tag">IB Diploma</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="timeline-year">2021</div>
                 </div>
 
-                <div class="timeline-item" data-year="2021" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Teaching Assistant</h3>
-                        <p class="role">Macalester College, Greater Minneapolis-St. Paul Area</p>
-                        <p>• Fall 2021 and Spring 2022 Teaching Assistant for STAT 155 - Statistical Modeling and STAT
-                            125 - Epidemiology<br>• Supported students in understanding complex statistical concepts and
-                            epidemiological methods<br>• Facilitated lab sessions and provided one-on-one tutoring for
-                            statistical analysis projects</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Statistical Modeling</span>
-                            <span class="achievement-tag">Epidemiology</span>
-                            <span class="achievement-tag">Teaching</span>
-                            <span class="achievement-tag">Academic Support</span>
-                        </div>
-                    </div>
-                    <div class="timeline-year">2021</div>
-                </div>
-
-                <div class="timeline-item" data-year="2020" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Business Intelligence Analyst Intern</h3>
-                        <p class="role">MoMo (Vietnamese Tech Unicorn), Ho Chi Minh City, Vietnam</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Merchant Segmentation Analysis</span>
-                            <span class="achievement-tag">Real-time Dashboard Development</span>
-                            <span class="achievement-tag">Data & User Research Rotational Intern</span>
-                        </div>
-                    </div>
-                    <div class="timeline-year">2020</div>
-                </div>
-
-                <div class="timeline-item" data-year="2019" data-category="professional">
-                    <div class="timeline-content">
-                        <h3>Market Research Intern</h3>
-                        <p class="role">Mindshare (Global Media Agency)</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">Media Planning</span>
-                            <span class="achievement-tag">Market Research</span>
-                        </div>
-                    </div>
-                    <div class="timeline-year">2019</div>
-                </div>
-
-                <div class="timeline-item" data-year="2018" data-category="education">
-                    <div class="timeline-content">
-                        <h3>International Baccalaureate</h3>
-                        <p class="role">UWC Mahindra College, India</p>
-                        <p>• Achieved 42/45 GPA, ranking in the World 98th percentile among IB students globally<br>•
-                            Higher Level subjects: Mathematics, Psychology, Chemistry; Standard Level: Biology, English,
-                            Spanish<br>• Completed rigorous international curriculum emphasizing critical thinking,
-                            global citizenship, and intercultural understanding</p>
-                        <div class="achievement-tags">
-                            <span class="achievement-tag">World 98th Percentile</span>
-                            <span class="achievement-tag">International Baccalaureate</span>
-                        </div>
-                    </div>
-                    <div class="timeline-year">2018</div>
-                </div>
             </div>
 
             <div class="journey-controls">
@@ -325,54 +343,101 @@
         <div class="projects-grid">
             <div class="project-card">
                 <h3>Bay Area Tech Migration & Housing Analysis</h3>
-                <p>• Research examining how tech migration and socioeconomic factors affect house values across census
-                    tracts in the Bay Area<br>• Used longitudinal GEE models and spatial autoregressive analysis to
-                    understand the $3 trillion Silicon Valley real estate spillover effects<br>• Analyzed the evolution
-                    from dot-com bubble through current tech boom impact on housing markets</p>
+                <p>• Longitudinal GEE models + spatial autoregressive analysis linking tech migration to housing prices<br>• Traced market shifts from the dot-com bubble through the current tech boom</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/introductions-1/about-the-project" target="_blank">View
-                        Project</a>
-                    <a href="https://2534095645-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Md61FRq-DHUJzl805LB%2Fuploads%2FwuImlYXdNub9B8osO4l2%2FSilicon%20Valley%20Evolution%20and%20Its%20Impact%20on%20House%20Values.pdf?alt=media&token=94ae13c5-3680-43b3-8090-eeedc0cf1fd9"
-                        target="_blank">View Project Writeup</a>
+                    <a href="https://thudang.gitbook.io/dataland/introductions-1/about-the-project" target="_blank">View Project</a>
+                    <a href="https://2534095645-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Md61FRq-DHUJzl805LB%2Fuploads%2FwuImlYXdNub9B8osO4l2%2FSilicon%20Valley%20Evolution%20and%20Its%20Impact%20on%20House%20Values.pdf?alt=media&token=94ae13c5-3680-43b3-8090-eeedc0cf1fd9" target="_blank">Writeup</a>
                 </div>
             </div>
 
             <div class="project-card">
                 <h3>Melbourne Housing Price Prediction</h3>
-                <p>• Statistical machine learning analysis predicting Melbourne housing prices using OLS, GAM, and LASSO
-                    regression<br>• Performed K-means clustering to segment houses into distinct market groups for
-                    targeted
-                    analysis<br>• The number of rooms, building area, house type, the number of bathrooms, year built,
-                    and distance from the Sydney Central Business District are the top predictors to model housing
-                    prices for Melbourne houses</p>
+                <p>• OLS, GAM, and LASSO regression with K-Means market segmentation<br>• Key drivers: rooms, area, type, bathrooms, year built, CBD distance</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/melbourne-housing-analysis-using-machine-learning-with-r/about-the-project"
-                        target="_blank">View Project</a>
+                    <a href="https://thudang.gitbook.io/dataland/melbourne-housing-analysis-using-machine-learning-with-r/about-the-project" target="_blank">View Project</a>
                     <a href="https://github.com/tdang244/Melbourne-Housing-Analysis" target="_blank">GitHub</a>
                 </div>
             </div>
 
             <div class="project-card">
                 <h3>Customer Segmentation with K-Means</h3>
-                <p>• Customer segmentation analysis using K-Means clustering techniques, inspired from my internship at
-                    MoMo <br>• Segmented customers into
-                    distinct behavioral groups to enable targeted marketing
-                    strategies </p>
+                <p>• K-Means clustering to segment customers into distinct behavioral groups<br>• Enabled targeted marketing strategies from real fintech behavioral data</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/customer-segmentation-with-k-means-clustering/about-the-project"
-                        target="_blank">View Project</a>
+                    <a href="https://thudang.gitbook.io/dataland/customer-segmentation-with-k-means-clustering/about-the-project" target="_blank">View Project</a>
                 </div>
             </div>
         </div>
         <div class="section-divider"></div>
     </section>
 
-    <footer
-        style="text-align: center; padding: 2rem; color: #6b7280; font-size: 0.9rem; background: rgba(255, 255, 255, 0.8);">
-        © 2025 Designed and built by Thu Dang with Claude AI
+    <section class="contact-section">
+        <h2 class="contact-heading">Let's connect</h2>
+        <p class="contact-sub">Open to data engineering roles, collaborations, and good coffee chats.</p>
+        <a href="mailto:anhthu2441999@gmail.com" class="btn btn-primary contact-btn">Say hello ↗</a>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/tdang244" target="_blank" aria-label="GitHub">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/thudang24/" target="_blank" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+            <a href="mailto:anhthu2441999@gmail.com" aria-label="Email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Email
+            </a>
+        </div>
+        <p class="footer-copy">© 2026 Designed and built by Thu Dang</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js?v=2"></script>
+    <script>
+    // Journey map — runs after Leaflet + script.js are both ready
+    (function () {
+        var el = document.getElementById('journey-map');
+        if (!el || typeof L === 'undefined' || el._leaflet_id) return;
+
+        var locs = [
+            { lat: 10.8231, lng: 106.6297, title: 'Ho Chi Minh City, Vietnam 🇻🇳', desc: 'Grew up here · Case Team Assistant @ BCG · BI Analyst Intern @ MoMo' },
+            { lat: 18.5204, lng: 73.8567,  title: 'Pune, India 🇮🇳',               desc: 'IB Student @ UWC Mahindra College · 42/45, World 98th %ile' },
+            { lat: 1.3521,  lng: 103.8198, title: 'Singapore 🇸🇬',                 desc: 'Summer Analytics Consultant @ Deloitte' },
+            { lat: 44.9397, lng: -93.1636, title: 'Saint Paul, Minnesota 🇺🇸',     desc: 'BA Applied Math & Stats, Computer Science Minor @ Macalester College · Analytics Engineering Intern @ Sezzle' },
+            { lat: 40.7128, lng: -74.0060, title: 'New York City 🇺🇸',             desc: 'Data Science Intern @ Up&Up' },
+            { lat: 40.7608, lng: -111.891, title: 'Salt Lake City, Utah 🇺🇸',      desc: 'Analytics Engineer I → II @ Lucid Software' },
+            { lat: 30.2672, lng: -97.7431, title: 'Austin, Texas 🇺🇸',             desc: 'Currently living here & working remotely · Incoming MSIS @ UT Austin' }
+        ];
+
+        var map = L.map('journey-map', { scrollWheelZoom: false, zoomControl: false });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
+            maxZoom: 10, subdomains: 'abcd'
+        }).addTo(map);
+
+        var dotIcon = L.divIcon({
+            html: '<div class="map-marker-dot"></div>',
+            iconSize: [10, 10], iconAnchor: [5, 5], className: ''
+        });
+
+        var bounds = [];
+        locs.forEach(function (loc) {
+            bounds.push([loc.lat, loc.lng]);
+            L.marker([loc.lat, loc.lng], { icon: dotIcon }).addTo(map).bindPopup(
+                '<div class="map-popup-title">' + loc.title + '</div>' +
+                '<div class="map-popup-desc">' + loc.desc + '</div>',
+                { maxWidth: 220 }
+            );
+        });
+
+        map.fitBounds(bounds, { padding: [28, 28] });
+        if ('ontouchstart' in window) map.dragging.disable();
+    })();
+    </script>
 </body>
 
 </html>

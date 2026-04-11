@@ -82,8 +82,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (type === 'all') show = true;
                 else if (type === 'category') show = (value === 'all') || (item.getAttribute('data-category') === value);
                 else if (type === 'year') show = (value === 'all') || (item.getAttribute('data-year') === value);
-                item.style.display = show ? 'flex' : 'none';
-                item.style.visibility = show ? 'visible' : 'hidden';
+                item.style.display = show ? '' : 'none';
+            });
+
+            // Hide year groups where all items are filtered out
+            document.querySelectorAll('.timeline-year-group').forEach(group => {
+                const hasVisible = Array.from(group.querySelectorAll('.timeline-item'))
+                    .some(item => item.style.display !== 'none');
+                group.style.display = hasVisible ? 'grid' : 'none';
             });
         }
 
@@ -157,33 +163,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function triggerAboutAnimation(container) {
-        if (aboutAnimationTriggered) return; // Don't trigger again if already triggered
-
+        if (aboutAnimationTriggered) return;
         aboutAnimationTriggered = true;
 
-        const profile = container.querySelector('.about-profile-centered');
+        const sectionTitle = document.querySelector('#about .section-title');
         const textParagraph = container.querySelector('.text-paragraph-flying');
         const skillCards = container.querySelectorAll('.skill-card-flying');
 
-        // Trigger profile animation
-        if (profile) {
+        // 1. Section title appears first
+        if (sectionTitle) {
             animationTimeouts.push(setTimeout(() => {
-                profile.classList.add('fly-in');
-            }, 100));
+                sectionTitle.classList.add('reveal');
+            }, 0));
         }
 
-        // Trigger text paragraph animation
+        // 2. Bento card (photo + bio) slides up
         if (textParagraph) {
             animationTimeouts.push(setTimeout(() => {
                 textParagraph.classList.add('fly-in');
-            }, 300));
+            }, 150));
         }
 
-        // Trigger skill cards animations
+        // 3. Stat cards stagger in one by one
         skillCards.forEach((card, idx) => {
             animationTimeouts.push(setTimeout(() => {
                 card.classList.add('fly-in');
-            }, 500 + (idx * 200)));
+            }, 350 + (idx * 120)));
         });
     }
 
@@ -191,13 +196,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const flyingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !aboutAnimationTriggered) {
-                    // Only trigger animation if it hasn't been triggered before
                     triggerAboutAnimation(entry.target);
                 }
             });
         }, {
-            threshold: 0.3,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px 0px 0px'
         });
 
         flyingObserver.observe(aboutSectionContainer);
@@ -283,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
         homeSection.style.opacity = '1';
         homeSection.style.transform = 'translateY(0)';
     }
+
 
     // --- Hamburger Menu for Mobile ---
     const navToggle = document.querySelector('.nav-toggle');
