@@ -68,18 +68,6 @@ body::before {
     z-index: 0;
 }
 
-/* =============================================
-   HIDE LEGACY DECORATIVE ELEMENTS
-   ============================================= */
-.bg-animation,
-.floating-shapes,
-.shape,
-.floating-element,
-.floating-particles,
-.particle,
-.section-divider {
-    display: none !important;
-}
 
 /* =============================================
    SCROLL INDICATOR
@@ -148,11 +136,6 @@ body::before {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom-color: var(--border);
-}
-
-/* container is kept for layout centering on desktop */
-.nav-container {
-    display: none; /* empty placeholder — links live outside */
 }
 
 /* nav-links is a direct child of #navbar */
@@ -418,7 +401,7 @@ body::before {
 .about-bento-top {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -431,48 +414,87 @@ body::before {
     transform: translateY(0);
 }
 
-/* Keep class for JS fly-in trigger */
-.about-profile-centered {
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-.about-avatar {
-    width: 226px;
-    height: 226px;
-    flex-shrink: 0;
-}
-
-.about-avatar-img {
-    width: 226px;
-    height: 226px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 68%;
-    border: 2.5px solid var(--border-2);
-    display: block;
-}
-
-.about-bio {
+/* Identity row: photo left, info right */
+.about-identity-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     width: 100%;
 }
 
-.about-bio-lead {
-    font-size: 0.9375rem;
-    color: var(--text);
-    line-height: 1.7;
-    margin-bottom: 0.625rem;
+.about-avatar-compact {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--border-2);
 }
 
-.about-bio-lead strong {
-    color: var(--text);
-    font-weight: 600;
+.about-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    display: block;
 }
 
-.about-bio-sub {
-    font-size: 0.8125rem;
+.about-identity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.about-name {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
+/* Map wrapper — lets hint float over the map */
+.about-map-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.about-role-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    font-size: 0.725rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: var(--r-full);
+    padding: 3px 10px;
+    letter-spacing: 0.01em;
+}
+
+.about-tagline {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.5;
+}
+
+.about-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.about-chip {
+    font-size: 0.6875rem;
     color: var(--text-3);
-    line-height: 1.72;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 2px 9px;
+    white-space: nowrap;
 }
 
 /* ── Bottom row: stat cards ── */
@@ -543,21 +565,40 @@ body::before {
     letter-spacing: 0.01em;
 }
 
-/* Legacy class aliases — keep for JS compatibility */
-.skills-flying-grid { /* grid handled by .about-stats-grid */ }
-.skill-card-flying.about-stat-card { /* styles defined above */ }
 
 /* =============================================
    JOURNEY MAP
    ============================================= */
+.map-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 450;
+    background: rgba(9, 9, 11, 0.82);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--r-full);
+    padding: 5px 16px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+    letter-spacing: 0.01em;
+    margin: 0;
+}
+
 .about-map {
-    height: 220px;
+    width: 100%;
+    height: 280px;
     border-radius: var(--r-md);
     overflow: hidden;
-    margin-top: 0.875rem;
+    margin-top: 0;
     border: 1px solid var(--border);
     position: relative;
-    z-index: 0; /* keep below fixed nav */
+    z-index: 0;
 }
 
 /* Leaflet popup — dark theme override */
@@ -801,10 +842,6 @@ body::before {
     margin-bottom: 6px;
 }
 
-/* Legacy — hidden */
-.timeline-year { display: none; }
-.timeline-content { display: contents; }
-
 /* Achievement tags */
 .achievement-tags {
     display: flex;
@@ -934,18 +971,6 @@ body::before {
 }
 
 /* =============================================
-   PROJECT IMPACT LINE
-   ============================================= */
-.project-impact {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.01em;
-    margin-bottom: 6px;
-    opacity: 0.85;
-}
-
-/* =============================================
    CONTACT CTA SECTION
    ============================================= */
 .contact-section {
@@ -984,11 +1009,11 @@ body::before {
    FOOTER
    ============================================= */
 footer {
-    text-align: center !important;
-    padding: 1.75rem !important;
-    color: var(--text-3) !important;
-    font-size: 0.8125rem !important;
-    background: transparent !important;
+    text-align: center;
+    padding: 1.75rem;
+    color: var(--text-3);
+    font-size: 0.8125rem;
+    background: transparent;
     border-top: 1px solid var(--border);
     position: relative;
     z-index: 1;
@@ -1025,8 +1050,6 @@ footer {
    RESPONSIVE
    ============================================= */
 @media (max-width: 768px) {
-    /* Hide the desktop wrapper, show hamburger */
-    .nav-container { display: none; }
     .nav-toggle { display: flex; }
 
     /* Nav-links escapes nav-container via fixed positioning */
@@ -1067,7 +1090,7 @@ footer {
 
     /* Layout */
     .about-bento-top    { gap: 14px; padding: 1.25rem; }
-    .about-stats-grid   { grid-template-columns: 1fr 1fr; }
+.about-stats-grid   { grid-template-columns: 1fr 1fr; }
     .projects-grid      { grid-template-columns: 1fr; }
     .page-indicator     { display: none; }
 

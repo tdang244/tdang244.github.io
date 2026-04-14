@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const aboutSectionContainer = document.querySelector('#about .about-section-container');
     const homeSection = document.querySelector('#home');
     let currentSectionIdx = 0;
-    let lastScrollY = window.scrollY;
-    let animationTimeouts = [];
-    let aboutAnimationTriggered = false; // Track if about animation has been triggered
+    let aboutAnimationTriggered = false;
 
     // --- Debounce Utility ---
     function debounce(fn, delay) {
@@ -139,15 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }, {
-        threshold: isMobile() ? 0.05 : 0.1, // Lower threshold for mobile
-        rootMargin: isMobile() ? '0px 0px -20px 0px' : '0px 0px -50px 0px', // Smaller margin for mobile
-        root: null
+        threshold: window.innerWidth <= 768 ? 0.05 : 0.1,
+        rootMargin: window.innerWidth <= 768 ? '0px 0px -20px 0px' : '0px 0px -50px 0px'
     });
-
-    // Helper function to detect mobile
-    function isMobile() {
-        return window.innerWidth <= 768;
-    }
 
     document.querySelectorAll('section').forEach(section => {
         section.style.opacity = '0';
@@ -156,12 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
         animObserver.observe(section);
     });
 
-    // --- Flying Cards Animation (Modified for one-time trigger) ---
-    function clearAllTimeouts() {
-        animationTimeouts.forEach(timeout => clearTimeout(timeout));
-        animationTimeouts = [];
-    }
-
+    // --- Flying Cards Animation (one-time trigger) ---
     function triggerAboutAnimation(container) {
         if (aboutAnimationTriggered) return;
         aboutAnimationTriggered = true;
@@ -170,25 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const textParagraph = container.querySelector('.text-paragraph-flying');
         const skillCards = container.querySelectorAll('.skill-card-flying');
 
-        // 1. Section title appears first
-        if (sectionTitle) {
-            animationTimeouts.push(setTimeout(() => {
-                sectionTitle.classList.add('reveal');
-            }, 0));
-        }
+        if (sectionTitle) sectionTitle.classList.add('reveal');
 
-        // 2. Bento card (photo + bio) slides up
         if (textParagraph) {
-            animationTimeouts.push(setTimeout(() => {
-                textParagraph.classList.add('fly-in');
-            }, 150));
+            setTimeout(() => textParagraph.classList.add('fly-in'), 150);
         }
 
-        // 3. Stat cards stagger in one by one
         skillCards.forEach((card, idx) => {
-            animationTimeouts.push(setTimeout(() => {
-                card.classList.add('fly-in');
-            }, 350 + (idx * 120)));
+            setTimeout(() => card.classList.add('fly-in'), 350 + (idx * 120));
         });
     }
 
@@ -206,15 +182,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         flyingObserver.observe(aboutSectionContainer);
 
-        // Force trigger on iPhone SE if the observer doesn't work
-        const isIPhoneSE = window.innerWidth === 375 && window.innerHeight === 667;
-        if (isIPhoneSE) {
-            // Force trigger the animation after a delay to ensure the section is visible
+        // Force trigger on iPhone SE if the observer doesn't fire
+        if (window.innerWidth === 375 && window.innerHeight === 667) {
             setTimeout(() => {
-                if (!aboutAnimationTriggered) {
-                    console.log("Forcing about animation on iPhone SE");
-                    triggerAboutAnimation(aboutSectionContainer);
-                }
+                if (!aboutAnimationTriggered) triggerAboutAnimation(aboutSectionContainer);
             }, 1000);
         }
     }
@@ -271,8 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Highlight navigation links
             navLinks.forEach(link => link.classList.remove('active'));
             const activeLink = document.querySelector(`.nav-links a[href="${currentSection}"]`);
-            console.log("Current section: ", currentSection);
-            console.log("Active link: ", activeLink);
+
             if (activeLink) activeLink.classList.add('active');
 
             // Highlight page dots
@@ -316,38 +286,6 @@ document.addEventListener('DOMContentLoaded', function () {
             this.classList.add('active');
         });
     });
-
-    // --- Touch Events for Mobile ---
-    let touchStartY = 0;
-    let touchEndY = 0;
-
-    document.addEventListener('touchstart', function (e) {
-        touchStartY = e.changedTouches[0].screenY;
-    });
-
-    document.addEventListener('touchend', function (e) {
-        touchEndY = e.changedTouches[0].screenY;
-        // handleSwipe();
-    });
-
-    // --- Performance Optimization for Mobile ---
-    let ticking = false;
-
-    function updateScrollIndicator() {
-        const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-        scrollIndicator.style.width = scrolled + '%';
-        ticking = false;
-    }
-
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateScrollIndicator);
-            ticking = true;
-        }
-    }
-
-    // Use passive listeners for better mobile performance
-    window.addEventListener('scroll', requestTick, { passive: true });
 
     // --- Resize Handler ---
     window.addEventListener('resize', debounce(() => {

@@ -7,7 +7,7 @@
     <title>Thu Dang - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=7">
 </head>
 
 <body>
@@ -21,19 +21,7 @@
         <div class="page-dot" data-section="projects" title="Projects"></div>
     </div>
 
-    <div class="bg-animation">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
-    </div>
-
     <nav id="navbar">
-        <div class="nav-container">
-            <!-- desktop nav links live here -->
-        </div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#journey">Journey</a></li>
@@ -48,9 +36,6 @@
     </nav>
 
     <section id="home" class="hero full-section active">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="typewriter">
@@ -67,7 +52,6 @@
                 <img src="anchor.jpg" alt="Cherry blossoms" class="hero-photo" />
             </div>
         </div>
-        <div class="section-divider"></div>
     </section>
 
     <section id="about" class="full-section">
@@ -75,14 +59,26 @@
 
         <div class="about-section-container">
 
-            <!-- Top bento row: avatar + bio -->
+            <!-- Top bento row: identity + map -->
             <div class="about-bento-top text-paragraph-flying">
-                <div class="about-avatar about-profile-centered">
-                    <img src="profile.jpg" alt="Thu Dang" class="about-avatar-img" />
+                <div class="about-identity-row">
+                    <div class="about-avatar-compact">
+                        <img src="profile.jpg" alt="Thu Dang" class="about-avatar-img" />
+                    </div>
+                    <div class="about-identity-info">
+                        <h3 class="about-name">Thu Dang</h3>
+                        <span class="about-role-badge">Analytics Engineer II · Lucid Software</span>
+                        <p class="about-tagline">Building equitable AI, one pipeline at a time.</p>
+                        <div class="about-chips">
+                            <span class="about-chip">🇻🇳 Vietnam</span>
+                            <span class="about-chip">🇮🇳 India</span>
+                            <span class="about-chip">🇸🇬 Singapore</span>
+                            <span class="about-chip">🇺🇸 United States</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="about-bio">
-                    <p class="about-bio-lead">Analytics Engineer II at <strong>Lucid Software</strong> (Lucidchart &amp; Lucidspark). Previously in data roles across fintech, real estate tech, BCG, and Deloitte.</p>
-                    <p class="about-bio-sub">Grew up in 🇻🇳 Vietnam, studied in 🇮🇳 India &amp; the 🇺🇸 US, and worked across 🌏 international markets. This path gives me a lens on building equitable AI.</p>
+                <div class="about-map-wrap">
+                    <p class="map-hint">Click on the pins to explore my journey ↑</p>
                     <div id="journey-map" class="about-map"></div>
                 </div>
             </div>
@@ -122,7 +118,7 @@
                 <div class="about-stat-card skill-card-flying">
                     <span class="about-stat-icon">🧗</span>
                     <div class="about-stat-body">
-                        <div class="about-stat-value">Outside Work</div>
+                        <div class="about-stat-value">Outside of Work</div>
                         <div class="about-stat-meta">
                             <span class="chip">Climbing</span>
                             <span class="chip">Running</span>
@@ -137,8 +133,6 @@
     </section>
 
     <section id="journey" class="full-section">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
         <h2 class="section-title">My Journey</h2>
 
         <div class="journey-container">
@@ -333,12 +327,9 @@
                 <button class="year-button" data-year="2018">2018</button>
             </div>
         </div>
-        <div class="section-divider"></div>
     </section>
 
     <section id="projects" class="full-section">
-        <div class="floating-element"></div>
-        <div class="floating-element"></div>
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
@@ -367,7 +358,6 @@
                 </div>
             </div>
         </div>
-        <div class="section-divider"></div>
     </section>
 
     <section class="contact-section">
@@ -395,7 +385,7 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
     <script>
     // Journey map — runs after Leaflet + script.js are both ready
     (function () {
@@ -436,6 +426,13 @@
 
         map.fitBounds(bounds, { padding: [28, 28] });
         if ('ontouchstart' in window) map.dragging.disable();
+
+        // Move hint into map container so popup z-index (700) supersedes it (450)
+        var hintEl = document.querySelector('.map-hint');
+        if (hintEl) { map.getContainer().appendChild(hintEl); }
+
+        // Re-render tiles after container becomes visible (fly-in starts hidden)
+        setTimeout(function () { map.invalidateSize(); }, 300);
     })();
     </script>
 </body>
