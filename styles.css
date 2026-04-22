@@ -8,12 +8,12 @@
 }
 
 :root {
-    /* Dark palette — 21st.dev zinc family */
-    --bg:        #09090b;
-    --surface:   #111113;
-    --surface-2: #18181b;
-    --border:    #27272a;
-    --border-2:  #3f3f46;
+    /* Dark palette — deep dark */
+    --bg:        #050507;
+    --surface:   rgba(255,255,255,0.03);
+    --surface-2: rgba(255,255,255,0.05);
+    --border:    rgba(255,255,255,0.06);
+    --border-2:  rgba(255,255,255,0.1);
     --text:      #fafafa;
     --text-2:    #a1a1aa;
     --text-3:    #71717a;
@@ -29,10 +29,10 @@
     --nav-h:  60px;
     --max-w:  860px;
 
-    /* Radii — Google M3 rounded */
+    /* Radii */
     --r-sm:   6px;
-    --r-md:   10px;
-    --r-lg:   16px;
+    --r-md:   16px;
+    --r-lg:   24px;
     --r-full: 9999px;
 
     /* Motion — Google M3 easing */
@@ -57,15 +57,28 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle dot-grid background — 21st.dev signature */
+/* Mesh gradient background */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.038) 1px, transparent 1px);
-    background-size: 24px 24px;
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(139,92,246,0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59,130,246,0.06), transparent),
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(236,72,153,0.04), transparent);
     pointer-events: none;
     z-index: 0;
+}
+
+/* Noise texture overlay */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
 }
 
 
@@ -132,10 +145,11 @@ body::before {
 }
 
 #navbar.scrolled {
-    background: rgba(9, 9, 11, 0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(5, 5, 7, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom-color: var(--border);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
 /* nav-links is a direct child of #navbar */
@@ -296,9 +310,25 @@ body::before {
     border-radius: var(--r-lg);
     overflow: hidden;
     aspect-ratio: 3 / 4;
-    border: 1px solid var(--border);
     flex-shrink: 0;
-    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 24px 64px rgba(0,0,0,0.5),
+        0 0 80px rgba(139,92,246,0.05);
+}
+
+/* Gradient border on hero photo */
+.hero-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--r-lg);
+    padding: 1px;
+    background: linear-gradient(160deg, rgba(139,92,246,0.4), rgba(59,130,246,0.2), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .hero-photo {
@@ -373,15 +403,17 @@ body::before {
 }
 
 .btn-secondary {
-    background: var(--surface);
+    background: rgba(255,255,255,0.04);
     color: var(--text-2);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
-    background: var(--surface-2);
+    background: rgba(255,255,255,0.07);
     color: var(--text);
-    border-color: var(--border-2);
+    border-color: rgba(255,255,255,0.12);
 }
 
 /* =============================================
@@ -397,16 +429,53 @@ body::before {
     gap: 12px;
 }
 
-/* ── Top row: avatar centered above bio ── */
+/* ── Top row: depth card with 3D thickness ── */
 .about-bento-top {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.07);
     border-radius: var(--r-lg);
     padding: 1.5rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* Card thickness — bottom layer */
+.about-bento-top::before {
+    content: '';
+    position: absolute;
+    inset: 4px -1px -6px -1px;
+    background: rgba(255,255,255,0.015);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--r-lg);
+    transform: translateZ(-10px);
+    z-index: -1;
+}
+
+/* Top edge highlight */
+.about-bento-top::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    pointer-events: none;
+}
+
+.about-bento-top:hover {
+    border-color: rgba(139,92,246,0.3);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px rgba(139,92,246,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 .about-bento-top.fly-in {
@@ -428,7 +497,8 @@ body::before {
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    border: 2px solid var(--border-2);
+    border: 2px solid rgba(139,92,246,0.2);
+    box-shadow: 0 0 24px rgba(139,92,246,0.08);
 }
 
 .about-avatar-img {
@@ -504,19 +574,52 @@ body::before {
     gap: 10px;
 }
 
-/* Keeps JS fly-in working via skill-card-flying class */
+/* Stat cards — gradient border + spotlight */
 .about-stat-card {
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.025);
     border-radius: var(--r-md);
     padding: 1.125rem 1.25rem;
-    transition:
-        border-color var(--fast),
-        box-shadow var(--fast);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+    position: relative;
+    overflow: hidden;
 }
+
+/* Animated gradient border */
+.about-stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r-md);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(59,130,246,0.15), rgba(236,72,153,0.15), transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Spotlight follow effect */
+.about-stat-card::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.1), transparent 70%);
+    top: var(--my, 50%);
+    left: var(--mx, 50%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.about-stat-card:hover::after { opacity: 1; }
 
 .about-stat-card.fly-in {
     opacity: 1;
@@ -524,8 +627,8 @@ body::before {
 }
 
 .about-stat-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.1), 0 4px 20px rgba(0, 0, 0, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
 }
 
 .about-stat-icon {
@@ -575,7 +678,7 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     z-index: 450;
-    background: rgba(9, 9, 11, 0.82);
+    background: rgba(5, 5, 7, 0.82);
     border: 1px solid rgba(139, 92, 246, 0.3);
     border-radius: var(--r-full);
     padding: 5px 16px;
@@ -784,15 +887,17 @@ body::before {
     overflow: visible;
 }
 
-/* Timeline cards */
+/* Timeline cards — glass */
 .timeline-item {
     position: relative;
     padding: 1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: var(--r-md);
     cursor: pointer;
-    transition: border-color var(--fast), box-shadow var(--fast);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color var(--fast), box-shadow var(--fast), transform var(--fast);
 }
 
 /* Dot on the line */
@@ -811,8 +916,9 @@ body::before {
 }
 
 .timeline-item:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.08), 0 2px 12px rgba(0,0,0,0.3);
+    border-color: rgba(139,92,246,0.3);
+    box-shadow: 0 0 0 1px rgba(139,92,246,0.08), 0 8px 32px rgba(0,0,0,0.4);
+    transform: translateY(-1px);
 }
 
 .timeline-item:hover::before {
@@ -908,26 +1014,55 @@ body::before {
     padding: 0 24px;
 }
 
-/* Google M3 elevated card + 21st.dev border style */
+/* Floating project cards */
 .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: var(--r-lg);
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    transition:
-        border-color var(--fast),
-        box-shadow var(--fast),
-        transform var(--fast);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.2, 0, 0, 1);
+    animation: float-idle 6s ease-in-out infinite;
+}
+
+.project-card:nth-child(2) { animation-delay: -2s; }
+.project-card:nth-child(3) { animation-delay: -4s; }
+
+@keyframes float-idle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Shadow underneath for levitation effect */
+.project-card::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 15%;
+    right: 15%;
+    height: 8px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.1), transparent);
+    filter: blur(4px);
+    border-radius: 50%;
+    transition: all 0.5s;
 }
 
 .project-card:hover {
-    border-color: var(--accent);
-    box-shadow:
-        0 0 0 1px rgba(139, 92, 246, 0.1),
-        0 8px 32px rgba(0, 0, 0, 0.35);
-    transform: translateY(-2px);
+    transform: translateY(-10px);
+    border-color: rgba(139,92,246,0.25);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+    animation-play-state: paused;
+}
+
+.project-card:hover::before {
+    bottom: -14px;
+    opacity: 0.7;
+    left: 10%;
+    right: 10%;
 }
 
 .project-card h3 {

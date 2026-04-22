@@ -287,11 +287,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // --- Spotlight follow on stat cards ---
+    document.querySelectorAll('.about-stat-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        });
+    });
+
     // --- Resize Handler ---
     window.addEventListener('resize', debounce(() => {
-        // Recalculate any layout-dependent values
         if (window.innerWidth <= 768) {
-            // Mobile-specific adjustments
             document.querySelectorAll('.nav-links').forEach(nav => {
                 nav.classList.remove('open');
             });
