@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "portfolio",
-      "runtimeExecutable": "/usr/local/bin/python3",
-      "runtimeArgs": ["-m", "http.server", "3000"],
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/private/tmp/claude-501/-Users-thudang-Documents-GitHub-Project-tdang244-github-io/4b24da26-37ce-4ea0-9b36-7a09ccdb180c/scratchpad/server.js"],
       "port": 3000
     }
   ]

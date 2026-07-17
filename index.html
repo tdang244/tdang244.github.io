@@ -7,7 +7,7 @@
     <title>Thu Dang - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="stylesheet" href="styles.css?v=9">
 </head>
 
 <body>
@@ -42,8 +42,8 @@
                     <span class="typewriter-text" id="typewriter-text"></span>
                     <span class="typewriter-cursor" id="typewriter-cursor"></span>
                 </h1>
-                <p class="subtitle">Analytics Engineer · AI Enthusiast</p>
-                <p class="description">Building equitable AI, one pipeline at a time.</p>
+                <p class="subtitle">Ex-Analytics Engineer @ Lucid Software · Incoming MSIS @ UT Austin</p>
+                <p class="description">Building data pipelines that teams actually trust.</p>
                 <div class="cta-buttons">
                     <a href="#about" class="btn btn-secondary">About me ↓</a>
                 </div>
@@ -67,8 +67,11 @@
                     </div>
                     <div class="about-identity-info">
                         <h3 class="about-name">Thu Dang</h3>
-                        <span class="about-role-badge">Analytics Engineer II · Lucid Software</span>
-                        <p class="about-tagline">Building equitable AI, one pipeline at a time.</p>
+                        <div class="about-badge-row">
+                            <span class="about-role-badge">Ex-Analytics Engineer II · Lucid Software</span>
+                            <span class="about-role-badge about-role-badge-edu">Incoming MSIS · UT Austin</span>
+                        </div>
+                        <p class="about-tagline">Building data pipelines that teams actually trust.</p>
                         <div class="about-chips">
                             <span class="about-chip">🇻🇳 Vietnam</span>
                             <span class="about-chip">🇮🇳 India</span>
@@ -86,10 +89,14 @@
             <!-- Bottom bento row: stat cards -->
             <div class="about-stats-grid skills-flying-grid">
                 <div class="about-stat-card skill-card-flying">
-                    <span class="about-stat-icon">🎓</span>
+                    <span class="about-stat-icon">🚀</span>
                     <div class="about-stat-body">
-                        <div class="about-stat-value">Macalester College</div>
-                        <div class="about-stat-meta">Summa Cum Laude · 3.91 GPA · Phi Beta Kappa</div>
+                        <div class="about-stat-value">Selected Impact</div>
+                        <div class="about-stat-meta">
+                            <span class="chip chip-metric">$9M loss reduced</span>
+                            <span class="chip chip-metric">80% fewer sync errors</span>
+                            <span class="chip chip-metric">50+ CX enabled</span>
+                        </div>
                     </div>
                 </div>
                 <div class="about-stat-card skill-card-flying">
@@ -144,6 +151,24 @@
 
             <div class="timeline">
 
+                <!-- 2026 -->
+                <div class="timeline-year-group" data-group-year="2026">
+                    <div class="timeline-year-marker">
+                        <span class="timeline-year-badge">2026</span>
+                    </div>
+                    <div class="timeline-year-items">
+                        <div class="timeline-item" data-year="2026" data-category="education">
+                            <h3>Master of Science in Information Studies (MSIS)</h3>
+                            <p class="role">The University of Texas at Austin, Incoming</p>
+                            <p>Deepening my work in data systems, machine learning, and applied AI.</p>
+                            <div class="achievement-tags">
+                                <span class="achievement-tag">Incoming Graduate Student</span>
+                                <span class="achievement-tag">Data Systems & AI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 2024 -->
                 <div class="timeline-year-group" data-group-year="2024">
                     <div class="timeline-year-marker">
@@ -153,6 +178,7 @@
                         <div class="timeline-item" data-year="2024" data-category="professional">
                             <h3>Analytics Engineer II</h3>
                             <p class="role">Lucid Software</p>
+                            <p>Led analytics engineering on core data pipelines and the team's adoption of AI coding tools.</p>
                             <div class="achievement-tags">
                                 <span class="achievement-tag">80% Fewer Sync Errors</span>
                                 <span class="achievement-tag">50+ CX Members Enabled</span>
@@ -171,15 +197,15 @@
                         <div class="timeline-item" data-year="2023" data-category="professional">
                             <h3>Analytics Engineer I</h3>
                             <p class="role">Lucid Software</p>
+                            <p>Built dbt dimensional models and pipeline monitoring so the business could trust its core metrics.</p>
                             <div class="achievement-tags">
                                 <span class="achievement-tag">40+ Pipeline Monitors</span>
                                 <span class="achievement-tag">dbt Dimensional Modeling</span>
                                 <span class="achievement-tag">Backlog Bottleneck Visibility</span>
-                                <span class="achievement-tag">Eng–Business Bridge</span>
                             </div>
                         </div>
                         <div class="timeline-item" data-year="2023" data-category="education">
-                            <h3>Bachelor of Arts — Applied Mathematics & Statistics, Computer Science</h3>
+                            <h3>Bachelor of Arts: Applied Mathematics & Statistics, Computer Science</h3>
                             <p class="role">Macalester College, Saint Paul, MN</p>
                             <p>• Graduated Summa Cum Laude with 3.91 GPA, earning membership in the Phi Beta Kappa Society<br>• Major in Applied Mathematics & Statistics with Computer Science minor</p>
                             <div class="achievement-tags">
@@ -192,6 +218,7 @@
                         <div class="timeline-item" data-year="2023" data-category="professional">
                             <h3>Analytics Engineering Intern</h3>
                             <p class="role">Sezzle, Minneapolis</p>
+                            <p>Owned a 3M+ user address pipeline feeding credit-bureau reporting, catching errors before they shipped.</p>
                             <div class="achievement-tags">
                                 <span class="achievement-tag">100% Error Detection Rate</span>
                                 <span class="achievement-tag">3M+ User Address Pipeline</span>
@@ -227,7 +254,7 @@
                     </div>
                     <div class="timeline-year-items">
                         <div class="timeline-item" data-year="2021" data-category="professional">
-                            <h3>Summer Analytics Consultant — AI & Data Team</h3>
+                            <h3>Summer Analytics Consultant, AI & Data Team</h3>
                             <p class="role">Deloitte Consulting, Singapore</p>
                             <div class="achievement-tags">
                                 <span class="achievement-tag">70% Faster Pipeline Runtime</span>
@@ -254,7 +281,6 @@
                                 <span class="achievement-tag">Stats & Epidemiology TA</span>
                                 <span class="achievement-tag">Lab Instruction</span>
                                 <span class="achievement-tag">One-on-One Mentorship</span>
-                                <span class="achievement-tag">2 Semesters</span>
                             </div>
                         </div>
                     </div>
@@ -304,7 +330,7 @@
                         <div class="timeline-item" data-year="2018" data-category="education">
                             <h3>International Baccalaureate</h3>
                             <p class="role">UWC Mahindra College, India</p>
-                            <p>• 42/45 — World 98th percentile<br>• HL: Mathematics, Psychology, Chemistry</p>
+                            <p>• 42/45, World 98th percentile<br>• HL: Mathematics, Psychology, Chemistry</p>
                             <div class="achievement-tags">
                                 <span class="achievement-tag">World Top 2%</span>
                                 <span class="achievement-tag">42/45 Score</span>
@@ -318,6 +344,7 @@
 
             <div class="journey-controls">
                 <button class="year-button active" data-year="all">All Years</button>
+                <button class="year-button" data-year="2026">2026</button>
                 <button class="year-button" data-year="2024">2024</button>
                 <button class="year-button" data-year="2023">2023</button>
                 <button class="year-button" data-year="2022">2022</button>
@@ -332,37 +359,165 @@
     <section id="projects" class="full-section">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
-            <div class="project-card">
-                <h3>Bay Area Tech Migration & Housing Analysis</h3>
-                <p>• Longitudinal GEE models + spatial autoregressive analysis linking tech migration to housing prices<br>• Traced market shifts from the dot-com bubble through the current tech boom</p>
+            <div class="project-card project-card-featured">
+                <span class="project-badge">Led at Lucid</span>
+                <h3>Rolling Out AI Coding Tools Across an Analytics Org</h3>
+                <p>• Led Lucid Software's analytics team adoption of Claude Code: from evaluation to workflows, guardrails, and enablement<br>• Built the playbook for how analytics engineers ship faster with AI while keeping data trustworthy</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/introductions-1/about-the-project" target="_blank">View Project</a>
-                    <a href="https://2534095645-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-Md61FRq-DHUJzl805LB%2Fuploads%2FwuImlYXdNub9B8osO4l2%2FSilicon%20Valley%20Evolution%20and%20Its%20Impact%20on%20House%20Values.pdf?alt=media&token=94ae13c5-3680-43b3-8090-eeedc0cf1fd9" target="_blank">Writeup</a>
+                    <a href="https://www.linkedin.com/in/thudang24/" target="_blank">Ask me on LinkedIn</a>
+                    <a href="mailto:anhthu2441999@gmail.com">Let's talk ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="projects-subhead">Earlier academic &amp; ML work</h3>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Bay Area Tech Migration &amp; Housing Analysis</h3>
+                <p>• Longitudinal GEE + spatial autoregressive models linking tech migration and demographics to census-tract house values<br>• Found sharp post-2014 price divergence between high- and low-growth zones</p>
+                <div class="project-links">
+                    <button type="button" class="project-open">Read case study →</button>
+                </div>
+                <div class="project-detail" hidden>
+                    <h3 class="pd-title">Bay Area Tech Migration &amp; Housing Analysis</h3>
+                    <div class="pd-tags">
+                        <span class="chip">R</span>
+                        <span class="chip">GEE</span>
+                        <span class="chip">Spatial Autoregression</span>
+                        <span class="chip">Housing Economics</span>
+                    </div>
+                    <div class="pd-section">
+                        <h4>The question</h4>
+                        <p>How do tech migration and socioeconomic factors shape house values across Bay Area census tracts? As someone eyeing emerging tech hubs like Austin and Salt Lake City, I wanted to understand how a mature tech economy reshapes local housing. Silicon Valley sits on roughly $3 trillion in value, and by 2019 the median single-family home in the Bay Area hit $1.06M, about 230% above the U.S. median.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>The data</h4>
+                        <p>Census-tract-level house values and demographics across the Bay Area, tracked longitudinally through market cycles. One known limitation: census values are top-capped at $1M before 2014 and $2M after, which compresses the high end of the market.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Approach</h4>
+                        <p>Two complementary models. A Generalized Estimating Equation (GEE) model captured the longitudinal trend across tracts over time, while a Spatial Autoregressive (SAR) model captured how neighboring tracts influence one another's prices.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>What I found</h4>
+                        <ul>
+                            <li>House values diverged sharply by growth segment after 2014: high-growth tracts far outpaced medium- and low-growth ones, tracking the 2018 recovery and tech expansion.</li>
+                            <li>Higher median income and a higher proportion of white residents correlated with higher prices, the latter likely echoing the historical legacy of redlining.</li>
+                            <li>Larger median household size and a higher share of California-born residents correlated with lower prices, the latter suggesting less inbound foreign investment.</li>
+                            <li>Silicon Valley and its neighboring tracts clustered at similar high values; distant, non-tech-affiliated areas sat well below.</li>
+                        </ul>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Limitations &amp; next steps</h4>
+                        <p>Beyond the census price caps, natural next steps are adding commute/ride-share distance and geographic features, uniting the longitudinal and spatial models into one, controlling for interest rates, and re-testing the framework in Austin and Salt Lake City.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card">
                 <h3>Melbourne Housing Price Prediction</h3>
-                <p>• OLS, GAM, and LASSO regression with K-Means market segmentation<br>• Key drivers: rooms, area, type, bathrooms, year built, CBD distance</p>
+                <p>• OLS → LASSO → GAM to model non-linear housing prices, plus K-Means to find natural house groupings<br>• Key drivers: rooms, building area, type, bathrooms, year built, CBD distance</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/melbourne-housing-analysis-using-machine-learning-with-r/about-the-project" target="_blank">View Project</a>
+                    <button type="button" class="project-open">Read case study →</button>
                     <a href="https://github.com/tdang244/Melbourne-Housing-Analysis" target="_blank">GitHub</a>
+                </div>
+                <div class="project-detail" hidden>
+                    <h3 class="pd-title">Melbourne Housing Price Prediction</h3>
+                    <div class="pd-tags">
+                        <span class="chip">R</span>
+                        <span class="chip">OLS</span>
+                        <span class="chip">LASSO</span>
+                        <span class="chip">GAM</span>
+                        <span class="chip">K-Means</span>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Why</h4>
+                        <p>Sparked by Simpson's Paradox: the way a trend can reverse once you account for a lurking variable. After meeting the idea in a statistical modeling course, I wanted to see how non-linear the Melbourne market really is, and whether natural house "groups" exist beyond the labeled types.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>The data</h4>
+                        <p>The Melbourne housing market dataset (Anthony Pino, Kaggle), cleaned before modeling. Two questions: (1) can we predict a house's price, and (2) how many distinct groups of houses are there?</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Predicting price</h4>
+                        <ul>
+                            <li>Started with ordinary least squares (OLS). Residual plots showed clear non-linear patterns; a straight-line model wasn't enough.</li>
+                            <li>Used LASSO to regularize and select the strongest predictors, tuning the penalty to its optimum and keeping the top six: number of rooms, building area, house type, bathrooms, year built, and distance from the CBD.</li>
+                            <li>Fit a Generalized Additive Model (GAM) on those six. Its residuals were far cleaner; the GAM captured the non-linearity OLS missed.</li>
+                        </ul>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Grouping houses</h4>
+                        <ul>
+                            <li>Ran K-Means on four numeric predictors: rooms, year built, distance to the CBD, and building area.</li>
+                            <li>The Elbow Method suggested 3 or 5 clusters; I chose 3, since the 5-cluster split was fragmented and harder to interpret.</li>
+                            <li>Group 1: small houses at a range of distances from the CBD. Group 2: medium houses, generally closer in. Group 3: large houses, closest to the CBD.</li>
+                            <li>Surprise finding: the clusters didn't line up with the dataset's labeled house types; the types overlap across clusters, so they carry less distinctive signal than expected.</li>
+                        </ul>
+                    </div>
+                    <div class="pd-links">
+                        <a href="https://github.com/tdang244/Melbourne-Housing-Analysis" target="_blank">Full R code on GitHub ↗</a>
+                    </div>
                 </div>
             </div>
 
             <div class="project-card">
                 <h3>Customer Segmentation with K-Means</h3>
-                <p>• K-Means clustering to segment customers into distinct behavioral groups<br>• Enabled targeted marketing strategies from real fintech behavioral data</p>
+                <p>• K-Means segmentation on the Mall Customer dataset, turning clusters into concrete marketing strategy<br>• Five income/spending segments, each with a distinct targeting play</p>
                 <div class="project-links">
-                    <a href="https://thudang.gitbook.io/dataland/customer-segmentation-with-k-means-clustering/about-the-project" target="_blank">View Project</a>
+                    <button type="button" class="project-open">Read case study →</button>
+                </div>
+                <div class="project-detail" hidden>
+                    <h3 class="pd-title">Customer Segmentation with K-Means</h3>
+                    <div class="pd-tags">
+                        <span class="chip">Python</span>
+                        <span class="chip">scikit-learn</span>
+                        <span class="chip">K-Means</span>
+                        <span class="chip">Marketing Analytics</span>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Why</h4>
+                        <p>During my analytics internship at MoMo, I kept hitting the same question: which customers should we actually spend on? This project is my hands-on study of the technique behind that answer: K-Means segmentation, and how to turn clusters into a marketing strategy.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>The data</h4>
+                        <p>The Mall Customer Segmentation dataset (Kaggle): 200 customers with age, gender, annual income (k$), and a 1-100 spending score.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Approach</h4>
+                        <p>K-Means on annual income vs. spending score. I used the Elbow Method (testing 1-10 clusters, minimizing the within-cluster sum of squares) and landed on 5, implemented in scikit-learn with <code>k-means++</code> initialization and a fixed random seed for reproducibility.</p>
+                    </div>
+                    <div class="pd-section">
+                        <h4>The five segments, and what I'd do with each</h4>
+                        <ul>
+                            <li>Average earners, average spenders: mixed ROI; a middle-priority, general-purpose audience.</li>
+                            <li>High income, low spending: the biggest untapped opportunity; worth a broad range of advertising to find what converts them.</li>
+                            <li>Low income, low spending: limited value; keep spend minimal.</li>
+                            <li>Low income, high spending: target cautiously; high spend on low income raises debt and social-responsibility concerns.</li>
+                            <li>High income, high spending: the VIPs; convert them into loyal, repeat customers, the best bet for long-term growth.</li>
+                        </ul>
+                    </div>
+                    <div class="pd-section">
+                        <h4>Takeaway</h4>
+                        <p>A simple two-feature model already splits customers into groups with clearly different strategies, and the same logic scales to the richer behavioral data of a fintech like MoMo.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Project case-study modal -->
+    <div class="project-modal" id="project-modal" aria-hidden="true">
+        <div class="project-modal-backdrop"></div>
+        <div class="project-modal-dialog" role="dialog" aria-modal="true" aria-label="Project case study">
+            <button type="button" class="project-modal-close" aria-label="Close">&times;</button>
+            <div class="project-modal-body"></div>
+        </div>
+    </div>
+
     <section class="contact-section">
         <h2 class="contact-heading">Let's connect</h2>
-        <p class="contact-sub">Open to data engineering roles, collaborations, and good coffee chats.</p>
+        <p class="contact-sub">Open to analytics &amp; AI engineering roles, collaborations, and good coffee chats.</p>
         <a href="mailto:anhthu2441999@gmail.com" class="btn btn-primary contact-btn">Say hello ↗</a>
     </section>
 
@@ -385,9 +540,9 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
     <script>
-    // Journey map — runs after Leaflet + script.js are both ready
+    // Journey map: runs after Leaflet + script.js are both ready
     (function () {
         var el = document.getElementById('journey-map');
         if (!el || typeof L === 'undefined' || el._leaflet_id) return;
@@ -398,8 +553,8 @@
             { lat: 1.3521,  lng: 103.8198, title: 'Singapore 🇸🇬',                 desc: 'Summer Analytics Consultant @ Deloitte' },
             { lat: 44.9397, lng: -93.1636, title: 'Saint Paul, Minnesota 🇺🇸',     desc: 'BA Applied Math & Stats, Computer Science Minor @ Macalester College · Analytics Engineering Intern @ Sezzle' },
             { lat: 40.7128, lng: -74.0060, title: 'New York City 🇺🇸',             desc: 'Data Science Intern @ Up&Up' },
-            { lat: 40.7608, lng: -111.891, title: 'Salt Lake City, Utah 🇺🇸',      desc: 'Analytics Engineer I → II @ Lucid Software' },
-            { lat: 30.2672, lng: -97.7431, title: 'Austin, Texas 🇺🇸',             desc: 'Currently living here & working remotely · Incoming MSIS @ UT Austin' }
+            { lat: 40.7608, lng: -111.891, title: 'Salt Lake City, Utah 🇺🇸',      desc: 'Analytics Engineer I → II @ Lucid Software (remote)' },
+            { lat: 30.2672, lng: -97.7431, title: 'Austin, Texas 🇺🇸',             desc: 'Currently based here · Incoming MSIS @ UT Austin' }
         ];
 
         var map = L.map('journey-map', { scrollWheelZoom: false, zoomControl: false });

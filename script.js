@@ -287,15 +287,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // --- Spotlight follow on stat cards ---
-    document.querySelectorAll('.about-stat-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
-            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
-        });
-    });
-
     // --- Resize Handler ---
     window.addEventListener('resize', debounce(() => {
         if (window.innerWidth <= 768) {
@@ -304,4 +295,45 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }, 250));
+
+    // --- Project Case-Study Modals ---
+    const projectModal = document.getElementById('project-modal');
+    if (projectModal) {
+        const modalBody = projectModal.querySelector('.project-modal-body');
+        let lastFocused = null;
+
+        function openProjectModal(detail) {
+            modalBody.innerHTML = detail.innerHTML;
+            projectModal.classList.add('open');
+            projectModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            modalBody.scrollTop = 0;
+            const closeBtn = projectModal.querySelector('.project-modal-close');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.remove('open');
+            projectModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (lastFocused) lastFocused.focus();
+        }
+
+        document.querySelectorAll('.project-open').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const card = this.closest('.project-card');
+                const detail = card && card.querySelector('.project-detail');
+                if (detail) {
+                    lastFocused = this;
+                    openProjectModal(detail);
+                }
+            });
+        });
+
+        projectModal.querySelector('.project-modal-close').addEventListener('click', closeProjectModal);
+        projectModal.querySelector('.project-modal-backdrop').addEventListener('click', closeProjectModal);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && projectModal.classList.contains('open')) closeProjectModal();
+        });
+    }
 });
